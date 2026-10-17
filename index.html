@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>整形リアル相談室</title>
+<style>
+:root{--bg:#f8f6f2;--ink:#24221f;--muted:#777168;--line:#e7e0d6;--accent:#9b8068}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
+header{padding:20px 22px;border-bottom:1px solid var(--line);background:#fff}
+.brand{font-size:12px;letter-spacing:2px;color:var(--accent)}
+header h1{font-size:19px;margin:8px 0 0}
+main{max-width:620px;margin:auto;padding:24px 20px 100px}
+.page{display:none}.page.active{display:block}
+.hero{padding:32px 22px;background:#25231f;color:#fff;border-radius:5px}
+.eyebrow{font-size:11px;letter-spacing:2px;color:#d9c5ae}
+h2{font-size:27px;line-height:1.55;font-weight:500;margin:12px 0}
+p{line-height:1.9;font-size:14px}
+.hero p{color:#e5e0d8}
+.btn{display:block;width:100%;padding:15px;margin-top:12px;border:1px solid var(--ink);background:var(--ink);color:white;font-size:14px;text-align:center;border-radius:3px;cursor:pointer}
+.btn.light{background:transparent;color:var(--ink)}
+.hero .btn{background:#f4eee5;color:#29251f;border-color:#f4eee5}
+h3{font-size:16px;margin:28px 0 12px}
+.card{padding:17px;margin:10px 0;background:white;border:1px solid var(--line);border-radius:4px;cursor:pointer}
+.card b{font-size:14px}.card p{margin:6px 0 0;color:var(--muted);font-size:12px}
+.small{font-size:12px;color:var(--muted)}
+label{display:block;font-size:13px;margin:18px 0 7px}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);background:white;border-radius:3px;font:inherit}
+textarea{min-height:110px}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#fff;border-top:1px solid var(--line);padding:12px 4px calc(12px + env(safe-area-inset-bottom));z-index:2}
+nav button{border:0;background:none;color:#686158;font-size:11px;padding:4px;cursor:pointer}
+nav button span{display:block;font-size:19px;margin-bottom:4px}
+.notice{background:#eee8df;padding:12px;font-size:12px;line-height:1.8}
+</style>
+</head>
+<body>
+<header><div class="brand">K-BEAUTY · REAL VOICES</div><h1>整形リアル相談室</h1></header>
+<main>
+<section id="home" class="page active">
+<div class="hero"><div class="eyebrow">YOUR BEAUTY JOURNEY</div><h2>整形のこと、<br>経験者に直接聞こう。</h2><p>口コミだけでは分からないことを、実際に施術を受けた人の体験から知るための場所。</p><button class="btn" onclick="showPage('categories')">施術を探す　→</button><button class="btn" onclick="showPage('reviews')">口コミを見る　→</button><button class="btn" onclick="showPage('ask')">経験者に質問する　→</button></div>
+<h3>こんなことを聞けます</h3>
+<div class="card"><b>費用・追加料金</b><p>実際にかかった金額や見積もりとの違い</p></div>
+<div class="card"><b>ダウンタイム</b><p>腫れ、痛み、仕事復帰までの体験</p></div>
+<div class="card"><b>韓国での体験</b><p>カウンセリング、言葉、術後の過ごし方</p></div>
+<p class="small">個人の体験談を共有するサービスです。医師による診断や治療の助言に代わるものではありません。</p>
+</section>
+<section id="categories" class="page">
+<h2>施術から探す</h2><p>気になるカテゴリを選んでください。</p>
+<div class="card" onclick="openCategory('目元')"><b>目元</b><p>二重・目頭・目の下など</p></div>
+<div class="card" onclick="openCategory('鼻')"><b>鼻</b><p>鼻筋・鼻先など</p></div>
+<div class="card" onclick="openCategory('輪郭・口元')"><b>輪郭・口元</b><p>輪郭形成・口元の施術など</p></div>
+<div class="card" onclick="openCategory('肌・その他')"><b>肌・その他</b><p>肌管理・その他の施術</p></div>
+<button class="btn light" onclick="showPage('home')">← ホームに戻る</button>
+</section>
+<section id="categoryDetail" class="page">
+<h2 id="categoryTitle">施術カテゴリ</h2>
+<p>このカテゴリの体験談や質問を集めていく予定です。</p>
+<div class="notice">現在、経験者を募集中です。回答できる人がまだいない場合は、質問への回答をすぐに提供できないことがあります。</div>
+<button class="btn" onclick="showPage('ask')">この施術について質問する</button>
+<button class="btn light" onclick="showPage('categories')">← カテゴリ一覧へ</button>
+</section>
+<section id="reviews" class="page">
+<h2>経験者の口コミ</h2>
+<p>広告だけでは分かりにくい、実際の経験を大切にします。</p>
+<div class="notice">掲載できる口コミを準備中です。まだ投稿がない段階では、実在する口コミのように見せかけた内容は掲載しません。</div>
+<button class="btn" onclick="showPage('ask')">聞きたいことを投稿する</button>
+<button class="btn light" onclick="showPage('home')">← ホームに戻る</button>
+</section>
+<section id="ask" class="page">
+<h2>経験者に質問する</h2>
+<p>質問内容を入力してください。今は受付フォームの試作品です。</p>
+<form id="questionForm">
+<label for="procedure">気になる施術</label>
+<select id="procedure" required><option value="">選択してください</option><option>目元</option><option>鼻</option><option>輪郭・口元</option><option>肌・その他</option></select>
+<label for="question">聞きたいこと</label>
+<textarea id="question" required placeholder="例：ダウンタイムはどのくらいでしたか？"></textarea>
+<label for="budget">回答者への謝礼（希望・任意）</label>
+<select id="budget"><option>未定</option><option>300〜500円</option><option>800〜1,500円</option><option>2,000円以上</option></select>
+<p class="small">この試作品では質問は送信・保存されません。個人情報や顔写真は入力しないでください。</p>
+<button class="btn" type="submit">入力内容を確認する</button>
+</form>
+<div id="formResult" class="notice" style="display:none;margin-top:16px"></div>
+<button class="btn light" onclick="showPage('home')">← ホームに戻る</button>
+</section>
+</main>
+<nav>
+<button onclick="showPage('home')"><span>⌂</span>ホーム</button>
+<button onclick="showPage('categories')"><span>⌕</span>施術を探す</button>
+<button onclick="showPage('reviews')"><span>♡</span>口コミ</button>
+<button onclick="showPage('ask')"><span>＋</span>質問する</button>
+</nav>
+<script>
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+window.scrollTo(0,0);
+}
+function openCategory(name){
+document.getElementById('categoryTitle').textContent=name+'の体験情報';
+showPage('categoryDetail');
+}
+document.getElementById('questionForm').addEventListener('submit',function(e){
+e.preventDefault();
+const category=document.getElementById('procedure').value;
+const question=document.getElementById('question').value;
+const budget=document.getElementById('budget').value;
+const result=document.getElementById('formResult');
+result.style.display='block';
+result.textContent='入力内容の確認用です（未送信）。カテゴリ：'+category+'／質問：'+question+'／謝礼希望：'+budget+'。この内容は保存・送信されていません。';
+});
+</script>
+</body>
+</html>
