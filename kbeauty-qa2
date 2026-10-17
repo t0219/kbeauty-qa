@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-Beauty Q&A</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  background: #faf8f6;
+  color: #292421;
+}
+header {
+  padding: 22px 18px;
+  background: #fff;
+  border-bottom: 1px solid #eee7e1;
+}
+.logo {
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.subtitle {
+  font-size: 12px;
+  color: #8a7b72;
+  margin-top: 5px;
+}
+main {
+  max-width: 600px;
+  margin: auto;
+  padding: 18px 16px 90px;
+}
+h1 {
+  font-size: 24px;
+  line-height: 1.5;
+}
+p {
+  line-height: 1.7;
+}
+.card {
+  background: #fff;
+  border: 1px solid #eee6df;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 12px 0;
+}
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.primary {
+  background: #302722;
+  color: #fff;
+  width: 100%;
+}
+.category {
+  background: #fff;
+  border: 1px solid #e8ddd4;
+  color: #493b33;
+  margin: 4px;
+}
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #eee7e1;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 4px;
+}
+nav button {
+  background: transparent;
+  color: #51463f;
+}
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd1c8;
+  border-radius: 10px;
+  margin: 8px 0 14px;
+  font-size: 15px;
+  background: white;
+}
+.small {
+  font-size: 12px;
+  color: #8a7b72;
+}
+.tag {
+  display: inline-block;
+  padding: 5px 9px;
+  background: #f4ece6;
+  border-radius: 20px;
+  font-size: 12px;
+  margin: 3px;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">K-BEAUTY Q&A</div>
+  <div class="subtitle">韓国美容のリアルな体験を共有しよう</div>
+</header>
+<main id="app"></main>
+<nav>
+  <button onclick="showHome()">ホーム</button>
+  <button onclick="showFeed()">体験談</button>
+  <button onclick="showAsk()">質問する</button>
+</nav>
+<script>
+const posts = [
+  {
+    title: "二重埋没を受けて1週間",
+    category: "二重整形",
+    text: "腫れは少しずつ落ち着いてきました。術後の経過を記録しています。",
+    date: "2026.10.10"
+  },
+  {
+    title: "目頭切開のダウンタイム",
+    category: "目元整形",
+    text: "術後の赤みや腫れについて、経過を共有します。",
+    date: "2026.10.08"
+  },
+  {
+    title: "鼻先の施術を検討中",
+    category: "鼻整形",
+    text: "施術を受けた方の体験談を参考にしたいです。",
+    date: "2026.10.06"
+  }
+];
+
+function showHome() {
+  document.getElementById("app").innerHTML = `
+    <h1>韓国美容のリアルを、<br>経験した人から。</h1>
+    <p>施術前の不安も、ダウンタイムの悩みも。体験談を読んで、自分に合った選択を。</p>
+    <button class="primary" onclick="showFeed()">体験談を見る</button>
+    <h2>施術カテゴリー</h2>
+    <div class="card">
+      <button class="category" onclick="showCategory('二重整形')">二重整形</button>
+      <button class="category" onclick="showCategory('目元整形')">目元整形</button>
+      <button class="category" onclick="showCategory('鼻整形')">鼻整形</button>
+      <button class="category" onclick="showCategory('輪郭・小顔')">輪郭・小顔</button>
+      <button class="category" onclick="showCategory('肌管理')">肌管理</button>
+      <button class="category" onclick="showCategory('その他')">その他</button>
+    </div>
+    <h2>新着の体験談</h2>
+    ${postCards(posts.slice(0, 3))}
+  `;
+}
+
+function postCards(items) {
+  return items.map((p, i) => `
+    <div class="card">
+      <span class="tag">${p.category}</span>
+      <h3>${p.title}</h3>
+      <p>${p.text}</p>
+      <div class="small">${p.date}</div>
+    </div>
+  `).join("");
+}
+
+function showFeed() {
+  document.getElementById("app").innerHTML = `
+    <h1>みんなの体験談</h1>
+    <p>施術後の経過や感想をチェック。</p>
+    ${postCards(posts)}
+    <p class="small">※表示されているのはサンプル投稿です。</p>
+  `;
+}
+
+function showCategory(category) {
+  const filtered = posts.filter(p => p.category === category);
+  document.getElementById("app").innerHTML = `
+    <h1>${category}</h1>
+    ${filtered.length ? postCards(filtered) : "<div class='card'>このカテゴリーの投稿はまだありません。</div>"}
+    <button class="primary" onclick="showFeed()">すべての体験談を見る</button>
+  `;
+}
+
+function showAsk() {
+  document.getElementById("app").innerHTML = `
+    <h1>質問する</h1>
+    <div class="card">
+      <p>美容施術について聞きたいことを入力してください。</p>
+      <label>カテゴリー</label>
+      <select id="questionCategory">
+        <option>二重整形</option>
+        <option>目元整形</option>
+        <option>鼻整形</option>
+        <option>輪郭・小顔</option>
+        <option>肌管理</option>
+        <option>その他</option>
+      </select>
+      <label>質問タイトル</label>
+      <input id="questionTitle" placeholder="例：術後の腫れについて">
+      <label>質問内容</label>
+      <textarea id="questionText" rows="5" placeholder="質問したい内容を書いてください"></textarea>
+      <button class="primary" onclick="submitQuestion()">質問内容を確認する</button>
+      <p class="small">現在はデモ版のため、質問は実際には送信・保存されません。</p>
+    </div>
+  `;
+}
+
+function submitQuestion() {
+  const title = document.getElementById("questionTitle").value.trim();
+  const text = document.getElementById("questionText").value.trim();
+  const category = document.getElementById("questionCategory").value;
+  if (!title || !text) {
+    alert("タイトルと質問内容を入力してください。");
+    return;
+  }
+  document.getElementById("app").innerHTML = `
+    <h1>質問内容の確認</h1>
+    <div class="card">
+      <span class="tag">${category}</span>
+      <h3>${title}</h3>
+      <p>${text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+      <p class="small">これは確認用のデモです。実際の投稿は保存されていません。</p>
+    </div>
+    <button class="primary" onclick="showHome()">ホームに戻る</button>
+  `;
+}
+
+showHome();
+</script>
+</body>
+</html>
